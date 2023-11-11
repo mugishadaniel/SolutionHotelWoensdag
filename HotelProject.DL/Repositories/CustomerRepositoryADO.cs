@@ -54,6 +54,7 @@ namespace HotelProject.DL.Repositories
                                 customers[id].AddMember(new Member((string)reader["membername"], DateOnly.FromDateTime((DateTime)reader["birthday"])));
                             }                            
                         }
+                    conn.Close();
                     return customers.Values.ToList();
                 }
             }

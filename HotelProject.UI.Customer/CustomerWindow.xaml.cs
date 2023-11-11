@@ -1,5 +1,7 @@
-﻿using HotelProject.BL.Model;
+﻿using HotelProject.BL.Managers;
+using HotelProject.BL.Model;
 using HotelProject.UI.CustomerWPF.Model;
+using HotelProject.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace HotelProject.UI.CustomerWPF
 {
     /// <summary>
@@ -23,9 +26,11 @@ namespace HotelProject.UI.CustomerWPF
     {
         public CustomerUI customerUI;
         private bool isUpdate;
+        private CustomerManager customerManager;
         public CustomerWindow(bool isUpdate,CustomerUI customerUI)
         {
             InitializeComponent();
+            customerManager = new CustomerManager(RepositoryFactory.CustomerRepository);
             this.customerUI = customerUI;
             this.isUpdate = isUpdate;
             if (customerUI != null )
@@ -51,6 +56,7 @@ namespace HotelProject.UI.CustomerWPF
             {
                 Customer c = new Customer(NameTextBox.Text, new ContactInfo(EmailTextBox.Text, PhoneTextBox.Text, new Address(CityTextBox.Text, ZipTextBox.Text, HouseNumberTextBox.Text, StreetTextBox.Text)));
                 //write customer
+                customerManager.AddCustomer(c);
                 c.Id = 100;
                 //TODO id from DB
                 customerUI = new CustomerUI(c.Id, c.Name, c.ContactInfo.Email, c.ContactInfo.Phone, c.ContactInfo.Address.ToString(), c.GetMembers().Count);

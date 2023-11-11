@@ -18,11 +18,11 @@ namespace HotelProject.BL.Model
         }
         public Address(string addressLine)
         {
-            string[] parts = addressLine.Split(new char[] { '|' });
-            _houseNumber = parts[3];
+            string[] parts = addressLine.Split(new char[] { ',' });
+            _houseNumber = parts[2];
             _street = parts[1];
             _municipality = parts[0];
-            _zipCode = parts[2];
+            _zipCode = parts[3];
         }
 
         private string _municipality;
@@ -39,7 +39,7 @@ namespace HotelProject.BL.Model
         }
         public string ToAddressLine()
         {
-            return $"{Municipality}|{ZipCode}|{Street}|{HouseNumber}";
+            return $"{Municipality},{Street},{HouseNumber},{ZipCode}";
         }
     }
 }

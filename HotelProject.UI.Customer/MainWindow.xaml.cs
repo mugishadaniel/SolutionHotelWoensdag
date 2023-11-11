@@ -32,9 +32,12 @@ namespace HotelProject.UI.CustomerWPF
         public MainWindow()
         {
             InitializeComponent();
+            CustomerWindow w = new CustomerWindow(false, null);
+            w.ShowDialog();
             customerManager = new CustomerManager(RepositoryFactory.CustomerRepository);       
             customersUIs= new ObservableCollection<CustomerUI>(customerManager.GetCustomers(null).Select(x => new CustomerUI(x.Id, x.Name, x.ContactInfo.Email, x.ContactInfo.Phone, x.ContactInfo.Address.ToString(), x.GetMembers().Count)));
             CustomerDataGrid.ItemsSource = customersUIs;
+
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)

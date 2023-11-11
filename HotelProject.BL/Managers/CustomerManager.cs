@@ -29,5 +29,17 @@ namespace HotelProject.BL.Managers
                 throw new CustomerManagerException("GetAllCustomer",ex);
             }
         }
+
+        public void AddCustomer(Customer customer)
+        {
+            try
+            {
+                _customerRepository.AddCustomer(customer);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomerManagerException("AddCustomer", ex);
+            }
+        }
     }
 }
