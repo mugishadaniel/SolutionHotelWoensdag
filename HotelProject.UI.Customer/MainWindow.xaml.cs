@@ -32,11 +32,9 @@ namespace HotelProject.UI.CustomerWPF
         public MainWindow()
         {
             InitializeComponent();
-            CustomerWindow w = new CustomerWindow(false, null);
-            w.ShowDialog();
             customerManager = new CustomerManager(RepositoryFactory.CustomerRepository);       
-            customersUIs= new ObservableCollection<CustomerUI>(customerManager.GetCustomers(null).Select(x => new CustomerUI(x.Id, x.Name, x.ContactInfo.Email, x.ContactInfo.Phone, x.ContactInfo.Address.ToString(), x.GetMembers().Count)));
-            CustomerDataGrid.ItemsSource = customersUIs;
+            Refresh();
+            
 
         }
 
@@ -50,11 +48,18 @@ namespace HotelProject.UI.CustomerWPF
             CustomerWindow w = new CustomerWindow(false,null);
             if (w.ShowDialog()==true)
                 customersUIs.Add(w.customerUI);
+                Refresh();
         }
 
         private void MenuItemDeleteCustomer_Click(object sender, RoutedEventArgs e)
         {
-
+            //delete the selected customer
+            if (CustomerDataGrid.SelectedItem == null) MessageBox.Show("Customer not selected","Delete");
+            else
+            {
+                customerManager.DeleteCustomer(((CustomerUI)CustomerDataGrid.SelectedItem).Id);
+                Refresh();
+            }
         }
 
         private void MenuItemUpdateCustomer_Click(object sender, RoutedEventArgs e)
@@ -65,6 +70,15 @@ namespace HotelProject.UI.CustomerWPF
                 CustomerWindow w = new CustomerWindow(true,(CustomerUI)CustomerDataGrid.SelectedItem);
                 w.ShowDialog();
             }
+            Refresh();
         }
+
+        public void Refresh()
+        {
+            customersUIs = new ObservableCollection<CustomerUI>(customerManager.GetCustomers(null).Select(x => new CustomerUI(x.Id, x.Name, x.ContactInfo.Email, x.ContactInfo.Phone, x.ContactInfo.Address.ToString(), x.GetMembers().Count)));
+            CustomerDataGrid.ItemsSource = customersUIs;
+        }
+
+
     }
 }

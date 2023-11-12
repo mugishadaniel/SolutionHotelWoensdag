@@ -51,6 +51,7 @@ namespace HotelProject.UI.CustomerWPF
                 customerUI.Email = EmailTextBox.Text;
                 customerUI.Phone = PhoneTextBox.Text;
                 //TODO customermanager.Update()
+                customerManager.UpdateCustomer(new Customer(customerUI.Name,customerUI.Id, new ContactInfo(customerUI.Email, customerUI.Phone, new Address(customerUI.Address))));
             }
             else
             {

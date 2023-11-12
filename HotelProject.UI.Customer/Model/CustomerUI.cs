@@ -9,7 +9,7 @@ namespace HotelProject.UI.CustomerWPF.Model
 {
     public class CustomerUI : INotifyPropertyChanged
     {
-        public CustomerUI(int? id, string name, string email, string phone, string address, int nrOfMembers)
+        public CustomerUI(int id, string name, string email, string phone, string address, int nrOfMembers)
         {
             this.id = id;
             this.name = name;
@@ -19,8 +19,8 @@ namespace HotelProject.UI.CustomerWPF.Model
             NrOfMembers = nrOfMembers;
         }
 
-        private int? id;
-        public int? Id { get { return id; } set { id = value; OnPropertyChanged(); } }
+        private int id;
+        public int Id { get { return id; } set { id = value; OnPropertyChanged(); } }
         private string name;
         public string Name { get { return name; } set { name = value; OnPropertyChanged(); } }
         private string email;

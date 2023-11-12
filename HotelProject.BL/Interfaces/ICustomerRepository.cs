@@ -11,5 +11,7 @@ namespace HotelProject.BL.Interfaces
     {
         List<Customer> GetCustomers(string filter);
         void AddCustomer(Customer customer);
+        void UpdateCustomer(Customer customer);
+        void DeleteCustomer(int id);
     }
 }
