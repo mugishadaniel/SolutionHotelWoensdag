@@ -8,5 +8,6 @@ namespace HotelProject.Util
     {
         public static ICustomerRepository CustomerRepository { get { return new CustomerRepositoryADO(ConfigurationManager.ConnectionStrings["HotelDB"].ConnectionString); } }
         public static IActivityRepository ActivityRepository { get { return new ActivityRepositoryADO(ConfigurationManager.ConnectionStrings["HotelDB"].ConnectionString); } }
+        public static IMemberRepository MemberRepository { get { return new MemberRepositoryADO(ConfigurationManager.ConnectionStrings["HotelDB"].ConnectionString); } }
     }
 }

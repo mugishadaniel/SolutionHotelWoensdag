@@ -27,10 +27,12 @@ namespace HotelProject.UI.CustomerWPF
         public CustomerUI customerUI;
         private bool isUpdate;
         private CustomerManager customerManager;
+        private MemberManager memberManager;
         public CustomerWindow(bool isUpdate,CustomerUI customerUI)
         {
             InitializeComponent();
             customerManager = new CustomerManager(RepositoryFactory.CustomerRepository);
+            memberManager = new MemberManager(RepositoryFactory.MemberRepository);
             this.customerUI = customerUI;
             this.isUpdate = isUpdate;
             if (customerUI != null )
@@ -74,6 +76,46 @@ namespace HotelProject.UI.CustomerWPF
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void AddMemberButton_Click(object sender, RoutedEventArgs e)
+        {
+            MemberWindow memberWindow = new MemberWindow(false,customerUI);
+            if (memberWindow.ShowDialog() == true)
+            {
+                customerUI._members.Add(memberWindow.memberUI);
+                
+            }
+        }
+
+        private void DeleteMemberButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (MemberDataGrid.SelectedItem != null)
+            {
+                memberManager.DeleteMember(new Member(((MemberUI)MemberDataGrid.SelectedItem).Name, ((MemberUI)MemberDataGrid.SelectedItem).BirthDay), customerUI.Id);
+                customerUI._members.Remove((MemberUI)MemberDataGrid.SelectedItem);
+                MemberDataGrid.ItemsSource = customerUI._members;
+            }
+        }
+
+        private void UpdateMemberButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (MemberDataGrid.SelectedItem != null)
+            {
+                MemberWindow memberWindow = new MemberWindow(true,customerUI);
+                memberWindow.oldMember = (MemberUI)MemberDataGrid.SelectedItem;
+                if (memberWindow.ShowDialog() == true)
+                {
+                    customerUI._members.Remove((MemberUI)MemberDataGrid.SelectedItem);
+                    customerUI._members.Add(memberWindow.memberUI);
+                    MemberDataGrid.ItemsSource = customerUI._members;
+                }
+            }
+        }
+
+        public void Refresh()
+        {
+            MemberDataGrid.ItemsSource = customerUI._members;
         }
     }
 }
