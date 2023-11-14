@@ -11,6 +11,7 @@ namespace HotelProject.BL.Model
         private ContactInfo _contactInfo;
         public ContactInfo ContactInfo { get { return _contactInfo; } set { if (value == null) throw new CustomerException("contactinfo null"); _contactInfo = value; } }
         private List<Member> _members=new List<Member>();
+        public List<Member> Members { get { return _members; } set { if (value == null) throw new CustomerException("members null"); _members = value; } }
 
         public Customer(string name, int id, ContactInfo contactInfo)
         {

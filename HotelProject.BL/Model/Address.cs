@@ -18,14 +18,14 @@ namespace HotelProject.BL.Model
         }
         public Address(string addressLine)
         {
-            if(addressLine.StartsWith("("))
+            if (addressLine.StartsWith("("))
             {
-                string cleanedAdress = addressLine.Trim('(', ')');
-                string[] parts = cleanedAdress.Split(new char[] { '[', ']', '-', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                _municipality = parts[0];
-                _zipCode = parts[1];
-                _street = parts[2];
-                _houseNumber = parts[3];
+                string cleanedAdress = addressLine.Trim('(', ')', ']');
+                string[] parts = cleanedAdress.Split(new char[] { '[', '-', }, StringSplitOptions.RemoveEmptyEntries);
+                Municipality = parts[0].Trim();
+                ZipCode = parts[1].Trim(']', ' ');
+                Street = parts[2].Trim();
+                HouseNumber = parts[3].Trim();
             }
             else
             {

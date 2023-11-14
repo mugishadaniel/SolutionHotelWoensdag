@@ -35,11 +35,15 @@ namespace HotelProject.UI.CustomerWPF
             this.isUpdate = isUpdate;
             if (customerUI != null )
             {
+                MemberDataGrid.ItemsSource = customerUI._members;
                 IdTextBox.Text = customerUI.Id.ToString();
                 NameTextBox.Text = customerUI.Name;
                 EmailTextBox.Text = customerUI.Email;
                 PhoneTextBox.Text = customerUI.Phone;
-                //CityTextBox.Text=customerUI.address
+                CityTextBox.Text = customerUI.Municipality;
+                ZipTextBox.Text = customerUI.ZipCode;
+                HouseNumberTextBox.Text = customerUI.HouseNumber;
+                StreetTextBox.Text = customerUI.Street;
             }
         }
 
@@ -50,6 +54,7 @@ namespace HotelProject.UI.CustomerWPF
                 customerUI.Name = NameTextBox.Text;
                 customerUI.Email = EmailTextBox.Text;
                 customerUI.Phone = PhoneTextBox.Text;
+                customerUI.Address = CityTextBox.Text+", "+StreetTextBox.Text+", "+HouseNumberTextBox.Text+", "+ZipTextBox.Text;
                 //TODO customermanager.Update()
                 customerManager.UpdateCustomer(new Customer(customerUI.Name,customerUI.Id, new ContactInfo(customerUI.Email, customerUI.Phone, new Address(customerUI.Address))));
             }
@@ -60,7 +65,7 @@ namespace HotelProject.UI.CustomerWPF
                 customerManager.AddCustomer(c);
                 c.Id = 100;
                 //TODO id from DB
-                customerUI = new CustomerUI(c.Id, c.Name, c.ContactInfo.Email, c.ContactInfo.Phone, c.ContactInfo.Address.ToString(), c.GetMembers().Count);
+                customerUI = new CustomerUI(c.Id, c.Name, c.ContactInfo.Email, c.ContactInfo.Phone, c.ContactInfo.Address.ToString(),null);
             }
             DialogResult = true;
             Close();

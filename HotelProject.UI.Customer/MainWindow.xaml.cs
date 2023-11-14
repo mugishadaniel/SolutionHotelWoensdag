@@ -28,33 +28,42 @@ namespace HotelProject.UI.CustomerWPF
     public partial class MainWindow : Window
     {
         private CustomerManager customerManager;
-        private ObservableCollection<CustomerUI> customersUIs=new ObservableCollection<CustomerUI>();
+        private ObservableCollection<CustomerUI> customersUIs = new ObservableCollection<CustomerUI>();
         public MainWindow()
         {
             InitializeComponent();
-            customerManager = new CustomerManager(RepositoryFactory.CustomerRepository);       
+            customerManager = new CustomerManager(RepositoryFactory.CustomerRepository);
             Refresh();
-            
+
 
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            CustomerDataGrid.ItemsSource = new ObservableCollection<CustomerUI>(customerManager.GetCustomers(SearchTextBox.Text).Select(x => new CustomerUI(x.Id, x.Name, x.ContactInfo.Email, x.ContactInfo.Phone, x.ContactInfo.Address.ToString(), x.GetMembers().Count)));
+            customersUIs.Clear();
+            foreach (Customer c in customerManager.GetCustomers(SearchTextBox.Text))
+            {
+                List<MemberUI> membersUI = new List<MemberUI>();
+                foreach (Member m in c.GetMembers())
+                {
+                    membersUI.Add(new MemberUI(m.Name, m.BirthDay));
+                }
+                customersUIs.Add(new CustomerUI(c.Id, c.Name, c.ContactInfo.Email, c.ContactInfo.Phone, c.ContactInfo.Address.ToString(), membersUI));
+            }
         }
 
         private void MenuItemAddCustomer_Click(object sender, RoutedEventArgs e)
         {
-            CustomerWindow w = new CustomerWindow(false,null);
-            if (w.ShowDialog()==true)
+            CustomerWindow w = new CustomerWindow(false, null);
+            if (w.ShowDialog() == true)
                 customersUIs.Add(w.customerUI);
-                Refresh();
+            Refresh();
         }
 
         private void MenuItemDeleteCustomer_Click(object sender, RoutedEventArgs e)
         {
             //delete the selected customer
-            if (CustomerDataGrid.SelectedItem == null) MessageBox.Show("Customer not selected","Delete");
+            if (CustomerDataGrid.SelectedItem == null) MessageBox.Show("Customer not selected", "Delete");
             else
             {
                 customerManager.DeleteCustomer(((CustomerUI)CustomerDataGrid.SelectedItem).Id);
@@ -64,10 +73,10 @@ namespace HotelProject.UI.CustomerWPF
 
         private void MenuItemUpdateCustomer_Click(object sender, RoutedEventArgs e)
         {
-            if (CustomerDataGrid.SelectedItem == null) MessageBox.Show("Customer not selected","Update");
+            if (CustomerDataGrid.SelectedItem == null) MessageBox.Show("Customer not selected", "Update");
             else
             {
-                CustomerWindow w = new CustomerWindow(true,(CustomerUI)CustomerDataGrid.SelectedItem);
+                CustomerWindow w = new CustomerWindow(true, (CustomerUI)CustomerDataGrid.SelectedItem);
                 w.ShowDialog();
             }
             Refresh();
@@ -75,9 +84,30 @@ namespace HotelProject.UI.CustomerWPF
 
         public void Refresh()
         {
-            customersUIs = new ObservableCollection<CustomerUI>(customerManager.GetCustomers(null).Select(x => new CustomerUI(x.Id, x.Name, x.ContactInfo.Email, x.ContactInfo.Phone, x.ContactInfo.Address.ToString(), x.GetMembers().Count)));
+            //add customers to the datagrid and add members to the customer with MembersUI and CustomerUI
+            customersUIs.Clear();
+            foreach (Customer c in customerManager.GetCustomers(null))
+            {
+                List<MemberUI> membersUI = new List<MemberUI>();
+                foreach (Member m in c.GetMembers())
+                {
+                    membersUI.Add(new MemberUI(m.Name, m.BirthDay));
+                }
+                customersUIs.Add(new CustomerUI(c.Id, c.Name, c.ContactInfo.Email, c.ContactInfo.Phone, c.ContactInfo.Address.ToString(), membersUI));
+            }
+            
             CustomerDataGrid.ItemsSource = customersUIs;
+            CustomerDataGrid.Loaded += (sender, e) =>
+            {
+                CustomerDataGrid.Columns[5].Visibility = Visibility.Hidden;
+                CustomerDataGrid.Columns[7].Visibility = Visibility.Hidden;
+                CustomerDataGrid.Columns[8].Visibility = Visibility.Hidden;
+                CustomerDataGrid.Columns[9].Visibility = Visibility.Hidden;
+                CustomerDataGrid.Columns[10].Visibility = Visibility.Hidden;
+            };
         }
+
+        
 
 
     }
