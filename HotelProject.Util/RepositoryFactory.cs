@@ -10,5 +10,6 @@ namespace HotelProject.Util
         public static IActivityRepository ActivityRepository { get { return new ActivityRepositoryADO(ConfigurationManager.ConnectionStrings["HotelDB"].ConnectionString); } }
         public static IMemberRepository MemberRepository { get { return new MemberRepositoryADO(ConfigurationManager.ConnectionStrings["HotelDB"].ConnectionString); } }
         public static IOrganizerRepository OrganizerRepository { get { return new OrganizerRepositoryADO(ConfigurationManager.ConnectionStrings["HotelDB"].ConnectionString); } }
+        public static IRegistrationRepository RegistrationRepository { get { return new RegistrationRepositoryADO(ConfigurationManager.ConnectionStrings["HotelDB"].ConnectionString); } }
     }
 }

@@ -26,6 +26,10 @@ namespace HotelProject.BL.Model
             _contactInfo = contactInfo;
         }
 
+        public Customer()
+        {
+        }
+
         public IReadOnlyList<Member> GetMembers()
         {
             return _members.AsReadOnly();

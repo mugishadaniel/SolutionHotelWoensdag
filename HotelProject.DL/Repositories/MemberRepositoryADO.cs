@@ -85,5 +85,33 @@ namespace HotelProject.DL.Repositories
                 throw new MemberRepositoryException("UpdateMember", ex);
             }
         }
+
+        public List<Member> GetMembers(int customerid)
+        {
+            try
+            {
+                List<Member> members = new List<Member>();
+                string sql = "select * from member where customerid=@customerid and status=1";
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+                    cmd.CommandText = sql;
+                    cmd.Parameters.AddWithValue("@customerid", customerid);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                        while (reader.Read())
+                        {
+                            members.Add(new Member((string)reader["name"], DateOnly.FromDateTime((DateTime)reader["birthday"])));
+                        }
+                    conn.Close();
+                    return members;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new CustomerRepositoryException("GetMembers", ex);
+            }
+        }
     }
 }

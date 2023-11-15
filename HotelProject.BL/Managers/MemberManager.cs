@@ -27,5 +27,10 @@ namespace HotelProject.BL.Managers
         {
             memberRepository.DeleteMember(member, customerid);
         }
+
+        public List<Member> GetMembers(int customerid)
+        {
+            return memberRepository.GetMembers(customerid);
+        }
     }
 }
