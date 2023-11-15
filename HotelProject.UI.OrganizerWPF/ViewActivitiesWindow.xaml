@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelProject.UI.OrganizerWPF"
         mc:Ignorable="d"
-        Title="ViewActivitiesWindow" Height="450" Width="1164">
+        Title="ViewActivitiesWindow" Height="550" Width="1164">
     <Grid>
         <StackPanel Margin="10">
             <!-- Search Panel -->
@@ -23,11 +23,11 @@
                         <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="150"/>
                         <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" Width="250"/>
                         <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location}" Width="150"/>
-                        <GridViewColumn Header="Start Date" DisplayMemberBinding="{Binding StartDate}" Width="120"/>
+                        <GridViewColumn Header="Start Date" DisplayMemberBinding="{Binding Date}" Width="155"/>
                         <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Duration}" Width="80"/>
                         <GridViewColumn Header="Available Places" DisplayMemberBinding="{Binding AvailablePlaces}" Width="120"/>
-                        <GridViewColumn Header="Cost for Adults" DisplayMemberBinding="{Binding PriceAdult}" Width="120"/>
-                        <GridViewColumn Header="Cost for Children" DisplayMemberBinding="{Binding PriceChild}" Width="120"/>
+                        <GridViewColumn Header="Cost for Adults" DisplayMemberBinding="{Binding PriceAdult}" Width="110"/>
+                        <GridViewColumn Header="Cost for Children" DisplayMemberBinding="{Binding PriceChild}" Width="110"/>
                     </GridView>
                 </ListView.View>
             </ListView>

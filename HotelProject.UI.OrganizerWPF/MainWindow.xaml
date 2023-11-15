@@ -8,12 +8,18 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Welcome, Organizer!" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="WelcomeTextBlock" Text="Welcome, Organizer!" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" HorizontalAlignment="Center"/>
 
-            <Button Content="View Activities" Width="200" Height="40" Margin="0,0,0,20" Background="#4CAF50" Foreground="White" FontSize="16" BorderThickness="0" Click="ViewActivities_Click"/>
+            <!-- ComboBox for organizer selection -->
+            <ComboBox x:Name="OrganizerComboBox" Width="200" Height="30" Margin="0,0,0,20"
+                      ItemsSource="{Binding Organizers}" DisplayMemberPath="Name" SelectedValuePath="Id"
+                      SelectionChanged="OrganizerComboBox_SelectionChanged"/>
 
-            <Button Content="Add New Activity" Width="200" Height="40" Background="#2196F3" Foreground="White" FontSize="16" BorderThickness="0" Click="AddNewActivity_Click"/>
+            <TextBlock x:Name="SelectedOrganizerTextBlock" Text="Selected Organizer: " FontSize="16" Margin="0,0,0,20"/>
+
+            <Button x:Name="button1" Content="View Activities" Width="200" Height="40" Margin="0,0,0,20" Background="#4CAF50" Foreground="White" FontSize="16" BorderThickness="0" Click="ViewActivities_Click" IsEnabled="False"/>
+
+            <Button x:Name="button2" Content="Add New Activity" Width="200" Height="40" Background="#2196F3" Foreground="White" FontSize="16" BorderThickness="0" Click="AddNewActivity_Click" IsEnabled="False"/>
         </StackPanel>
-
     </Grid>
 </Window>

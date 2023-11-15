@@ -36,6 +36,9 @@ namespace HotelProject.UI.OrganizerWPF
             string name = NameTextBox.Text;
             string description = DescriptionTextBox.Text;
             DateTime date = DatePicker.SelectedDate ?? DateTime.Now;
+            int selectedHours = int.Parse(((ComboBoxItem)HoursComboBox.SelectedItem).Content.ToString());
+            int selectedMinutes = int.Parse(((ComboBoxItem)MinutesComboBox.SelectedItem).Content.ToString());
+            date = date.AddHours(selectedHours).AddMinutes(selectedMinutes);
             int duration = Convert.ToInt32(DurationTextBox.Text);
             int availablePlaces = Convert.ToInt32(AvailablePlacesTextBox.Text);
             decimal priceAdult = Convert.ToDecimal(PriceAdultTextBox.Text);
