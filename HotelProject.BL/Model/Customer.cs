@@ -22,7 +22,7 @@ namespace HotelProject.BL.Model
 
         public Customer(string name, ContactInfo contactInfo)
         {
-            _name = name;
+            Name = name;
             _contactInfo = contactInfo;
         }
 

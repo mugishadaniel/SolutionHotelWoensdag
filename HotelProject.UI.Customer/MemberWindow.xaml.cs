@@ -44,6 +44,12 @@ namespace HotelProject.UI.CustomerWPF
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+            //give a message box if not all fields are filled in
+            if (NameTextBox.Text == "" || BirthdayDatePicker.SelectedDate == null)
+            {
+                MessageBox.Show("Please fill in all fields");
+                return;
+            }
             if(isUpdate)
             {
                 memberUI = new MemberUI(NameTextBox.Text, DateOnly.FromDateTime(BirthdayDatePicker.SelectedDate ?? DateTime.Today));

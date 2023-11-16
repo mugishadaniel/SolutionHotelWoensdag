@@ -47,6 +47,12 @@ namespace HotelProject.UI.RegisterWPF
 
         private void SignUpButton_Click(object sender, RoutedEventArgs e)
         {
+            //check if all fields are filled
+            if (CustomerComboBox.SelectedItem == null || ActivitiesComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please fill all fields");
+                return;
+            }
             registrationManager.AddRegistration(registration);
             MessageBox.Show("Registration completed successfully");
             Close();

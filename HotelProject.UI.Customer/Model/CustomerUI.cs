@@ -16,7 +16,10 @@ namespace HotelProject.UI.CustomerWPF.Model
             this.email = email;
             this.phone = phone;
             this.address = address;
-            this._members = members;
+            if (members != null)
+                _members = members;
+            else
+                _members = new List<MemberUI>();
             CleanAdressFormat();
 
         }

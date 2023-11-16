@@ -35,6 +35,7 @@ namespace HotelProject.UI.CustomerWPF
             memberManager = new MemberManager(RepositoryFactory.MemberRepository);
             this.customerUI = customerUI;
             this.isUpdate = isUpdate;
+            if(isUpdate == false) MemberDataGrid.ContextMenu.IsEnabled = false;
             if (customerUI != null )
             {
                 MemberDataGrid.ItemsSource = customerUI._members;
@@ -51,6 +52,12 @@ namespace HotelProject.UI.CustomerWPF
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+            //give a message box if not all fields are filled in
+            if (NameTextBox.Text == "" || EmailTextBox.Text == "" || PhoneTextBox.Text == "" || CityTextBox.Text == "" || ZipTextBox.Text == "" || HouseNumberTextBox.Text == "" || StreetTextBox.Text == "")
+            {
+                MessageBox.Show("Please fill in all fields");
+                return;
+            }
             if (isUpdate)
             {
                 customerUI.Name = NameTextBox.Text;
@@ -62,6 +69,7 @@ namespace HotelProject.UI.CustomerWPF
             }
             else
             {
+
                 Customer c = new Customer(NameTextBox.Text, new ContactInfo(EmailTextBox.Text, PhoneTextBox.Text, new Address(CityTextBox.Text, ZipTextBox.Text, HouseNumberTextBox.Text, StreetTextBox.Text)));
                 //write customer
                 customerManager.AddCustomer(c);
@@ -83,9 +91,12 @@ namespace HotelProject.UI.CustomerWPF
             MemberWindow memberWindow = new MemberWindow(false,customerUI);
             if (memberWindow.ShowDialog() == true)
             {
-                customerUI._members.Add(memberWindow.memberUI);
+
                 
             }
+            //show the new member in the datagrid
+            customerUI._members.Add(memberWindow.memberUI);
+            Refresh();
         }
 
         private void DeleteMemberButton_Click(object sender, RoutedEventArgs e)
@@ -94,7 +105,7 @@ namespace HotelProject.UI.CustomerWPF
             {
                 memberManager.DeleteMember(new Member(((MemberUI)MemberDataGrid.SelectedItem).Name, ((MemberUI)MemberDataGrid.SelectedItem).BirthDay), customerUI.Id);
                 customerUI._members.Remove((MemberUI)MemberDataGrid.SelectedItem);
-                MemberDataGrid.ItemsSource = customerUI._members;
+                Refresh();
             }
         }
 
@@ -106,15 +117,17 @@ namespace HotelProject.UI.CustomerWPF
                 memberWindow.oldMember = (MemberUI)MemberDataGrid.SelectedItem;
                 if (memberWindow.ShowDialog() == true)
                 {
-                    customerUI._members.Remove((MemberUI)MemberDataGrid.SelectedItem);
-                    customerUI._members.Add(memberWindow.memberUI);
-                    MemberDataGrid.ItemsSource = customerUI._members;
+
                 }
+                customerUI._members.Remove((MemberUI)MemberDataGrid.SelectedItem);
+                customerUI._members.Add(memberWindow.memberUI);
+                Refresh();
             }
         }
 
         public void Refresh()
         {
+            MemberDataGrid.ItemsSource = null;
             MemberDataGrid.ItemsSource = customerUI._members;
         }
     }

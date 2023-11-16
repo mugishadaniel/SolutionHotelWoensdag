@@ -33,6 +33,7 @@ namespace HotelProject.UI.CustomerWPF
         {
             InitializeComponent();
             customerManager = new CustomerManager(RepositoryFactory.CustomerRepository);
+            GetDatabaseInfo();
             Refresh();
 
 
@@ -67,6 +68,7 @@ namespace HotelProject.UI.CustomerWPF
             else
             {
                 customerManager.DeleteCustomer(((CustomerUI)CustomerDataGrid.SelectedItem).Id);
+                customersUIs.Remove((CustomerUI)CustomerDataGrid.SelectedItem);
                 Refresh();
             }
         }
@@ -84,18 +86,7 @@ namespace HotelProject.UI.CustomerWPF
 
         public void Refresh()
         {
-            //add customers to the datagrid and add members to the customer with MembersUI and CustomerUI
-            customersUIs.Clear();
-            foreach (Customer c in customerManager.GetCustomers(null))
-            {
-                List<MemberUI> membersUI = new List<MemberUI>();
-                foreach (Member m in c.GetMembers())
-                {
-                    membersUI.Add(new MemberUI(m.Name, m.BirthDay));
-                }
-                customersUIs.Add(new CustomerUI(c.Id, c.Name, c.ContactInfo.Email, c.ContactInfo.Phone, c.ContactInfo.Address.ToString(), membersUI));
-            }
-            
+         
             CustomerDataGrid.ItemsSource = customersUIs;
             CustomerDataGrid.Loaded += (sender, e) =>
             {
@@ -107,7 +98,18 @@ namespace HotelProject.UI.CustomerWPF
             };
         }
 
-        
+        public void GetDatabaseInfo()
+        {
+            foreach (Customer c in customerManager.GetCustomers(null))
+            {
+                List<MemberUI> membersUI = new List<MemberUI>();
+                foreach (Member m in c.GetMembers())
+                {
+                    membersUI.Add(new MemberUI(m.Name, m.BirthDay));
+                }
+                customersUIs.Add(new CustomerUI(c.Id, c.Name, c.ContactInfo.Email, c.ContactInfo.Phone, c.ContactInfo.Address.ToString(), membersUI));
+            }
+        }
 
 
     }

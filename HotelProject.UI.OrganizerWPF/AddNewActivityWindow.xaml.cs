@@ -32,6 +32,12 @@ namespace HotelProject.UI.OrganizerWPF
 
         private void AddActivity_Click(object sender, RoutedEventArgs e)
         {
+            //check if all fields are filled
+            if (NameTextBox.Text == "" || DescriptionTextBox.Text == "" || DatePicker.SelectedDate == null || HoursComboBox.SelectedItem == null || MinutesComboBox.SelectedItem == null || DurationTextBox.Text == "" || AvailablePlacesTextBox.Text == "" || PriceAdultTextBox.Text == "" || PriceChildTextBox.Text == "" || LocationTextBox.Text == "")
+            {
+                MessageBox.Show("Please fill all fields!");
+                return;
+            }
             // Get values from the input fields
             string name = NameTextBox.Text;
             string description = DescriptionTextBox.Text;
