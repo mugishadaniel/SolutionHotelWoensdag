@@ -38,10 +38,27 @@ namespace HotelProject.BL.Model
 
         private void CalculatePrice()
         {
-            //calculate the price of the registration
-            costAdult = _activity.PriceAdult * _numberOfAdults;
-            costChild = _activity.PriceChild * _numberOfChildren;
-            _price = costAdult + costChild;
+            //calculate the price if there is a discount
+            if (_activity.Discount != null || _activity.Discount != 0)
+            {
+                costAdult = (decimal)(_activity.PriceAdult - (_activity.PriceAdult * (_activity.Discount/100))) * _numberOfAdults;
+                if (Customer.Members.Count != 0) costChild = (decimal)(_activity.PriceChild - (_activity.PriceChild * (_activity.Discount / 100))) * _numberOfChildren;
+                else costChild = 0;
+            }
+            else
+            {
+                costAdult = _activity.PriceAdult * _numberOfAdults;
+                if (Customer.Members.Count != 0) costChild = _activity.PriceChild * _numberOfChildren;
+                else costChild = 0;
+            }
+
+            costAdult = decimal.Parse(costAdult.ToString("0.00"));
+            costChild = decimal.Parse(costChild.ToString("0.00"));
+
+
+            Price = decimal.Parse((costAdult + costChild).ToString("0.00"));
+
+            
         }
 
         private void AdultOrChild(Customer customer)

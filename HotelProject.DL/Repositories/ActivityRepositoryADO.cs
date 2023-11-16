@@ -23,7 +23,7 @@ namespace HotelProject.DL.Repositories
         {
             try
             {
-                string query = "INSERT INTO Activity (Name, Description, Location, Startdate, Duration, AvailablePlaces, CostAdult, CostChild)\r\nVALUES (@Name, @Description, @Location, @Date, @Duration, @AvailablePlaces, @PriceAdult, @PriceChild);";
+                string query = "INSERT INTO Activity (Name, Description, Location, Startdate, Duration, AvailablePlaces, CostAdult, CostChild,Discount)\r\nVALUES (@Name, @Description, @Location, @Date, @Duration, @AvailablePlaces, @PriceAdult, @PriceChild,@Discount);";
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
@@ -41,6 +41,14 @@ namespace HotelProject.DL.Repositories
                         cmd.Parameters.AddWithValue("@AvailablePlaces", activity.AvailablePlaces);
                         cmd.Parameters.AddWithValue("@PriceAdult", activity.PriceAdult);
                         cmd.Parameters.AddWithValue("@PriceChild", activity.PriceChild);
+                        if(activity.Discount == null)
+                        {
+                            cmd.Parameters.AddWithValue("@Discount", DBNull.Value);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@Discount", activity.Discount);
+                        }
                         cmd.ExecuteNonQuery();
                         transaction.Commit();
                     }
@@ -86,7 +94,15 @@ namespace HotelProject.DL.Repositories
                             int id = Convert.ToInt32(reader["ID"]);
                             if (!activities.ContainsKey(id)) //member toevoegen
                             {
-                                activities.Add(id, new Activity(id, (string)reader["Name"], (string)reader["Description"], (DateTime)reader["Startdate"], (int)reader["Duration"], (int)reader["AvailablePlaces"], (decimal)reader["CostAdult"], (decimal)reader["CostChild"], (string)reader["Location"]));
+                                //first see if it contains a discount
+                                if (reader["Discount"] == DBNull.Value)
+                                {
+                                    activities.Add(id, new Activity(id, reader["Name"].ToString(), reader["Description"].ToString(), Convert.ToDateTime(reader["Startdate"]), Convert.ToInt32(reader["Duration"]), Convert.ToInt32(reader["AvailablePlaces"]), Convert.ToDecimal(reader["CostAdult"]), Convert.ToDecimal(reader["CostChild"]),0, reader["Location"].ToString()));
+                                }
+                                else
+                                {
+                                    activities.Add(id, new Activity(id, reader["Name"].ToString(), reader["Description"].ToString(), Convert.ToDateTime(reader["Startdate"]), Convert.ToInt32(reader["Duration"]), Convert.ToInt32(reader["AvailablePlaces"]), Convert.ToDecimal(reader["CostAdult"]), Convert.ToDecimal(reader["CostChild"]), Convert.ToDecimal(reader["Discount"]), reader["Location"].ToString()));
+                                }
                             }
                         }
                     conn.Close();

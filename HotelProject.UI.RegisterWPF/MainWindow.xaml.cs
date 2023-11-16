@@ -67,30 +67,58 @@ namespace HotelProject.UI.RegisterWPF
 
         private void ActivitiesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            MembersListBox.IsEnabled = true;
+            MembersListBox.SelectedItems.Clear();
             activity = ActivitiesComboBox.SelectedItem as Activity;
             DateTextBlock.Text = activity.Date.ToString();
             LocationTextBlock.Text = activity.Location;
             AvailableSeatsTextBlock.Text = activity.AvailablePlaces.ToString();
+            customer.Members = new List<Member>();
+            registration = new Registration(customer, activity);
+
+            if (activity.Discount == null || activity.Discount == 0)
+            {
+                SubtotalAdultsTextBlock.Text = registration.costAdult.ToString() + $"       {registration.NumberOfAdults} adult(s)";
+                SubtotalChildrenTextBlock.Text = registration.costChild.ToString() + $"       {registration.NumberOfChildren} children";
+                DiscountTextBlock.Text = " ";
+                TotalCostTextBlock.Text = registration.Price.ToString();
+            }
+            else
+            {
+                SubtotalAdultsTextBlock.Text = registration.costAdult.ToString() + $" ({activity.PriceAdult * registration.NumberOfAdults})       {registration.NumberOfAdults} adult(s)";
+                SubtotalChildrenTextBlock.Text = registration.costChild.ToString() + $" ({activity.PriceChild * registration.NumberOfChildren})      {registration.NumberOfChildren} children";
+                DiscountTextBlock.Text = $"Discount: {activity.Discount}%";
+                TotalCostTextBlock.Text = registration.Price.ToString();
+            }
+
         }
 
         private void MembersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             customer.Members = new List<Member>();
+
             foreach (Member member in MembersListBox.SelectedItems)
             {
-                if(customer.Members.Contains(member))
-                {
-                    customer.Members.Remove(member);
-                }
-                else
-                {
-                    customer.Members.Add(member);
-                }   
+               customer.Members.Add(member);
             }
+
             registration = new Registration(customer, activity);
-            SubtotalAdultsTextBlock.Text = registration.costAdult.ToString() + $"    {registration.NumberOfAdults} adults";
-            SubtotalChildrenTextBlock.Text = registration.costChild.ToString() + $"    {registration.NumberOfChildren} children";
-            TotalCostTextBlock.Text = registration.Price.ToString();
+            if (activity.Discount == null || activity.Discount == 0)
+            {
+                SubtotalAdultsTextBlock.Text = registration.costAdult.ToString() + $"       {registration.NumberOfAdults} adults";
+                SubtotalChildrenTextBlock.Text = registration.costChild.ToString() + $"       {registration.NumberOfChildren} children";
+                DiscountTextBlock.Text = " ";
+                TotalCostTextBlock.Text = registration.Price.ToString();
+            }
+            else
+            {
+                SubtotalAdultsTextBlock.Text = $"{registration.costAdult.ToString()} ({activity.PriceAdult * registration.NumberOfAdults} per adult)       {registration.NumberOfAdults} adults";
+                SubtotalChildrenTextBlock.Text = $"{registration.costChild.ToString()} ({activity.PriceChild * registration.NumberOfChildren})       {registration.NumberOfChildren} children";
+                DiscountTextBlock.Text = $"Discount: {activity.Discount}%";
+                TotalCostTextBlock.Text = registration.Price.ToString();
+            }
+
+
         }
     }
 }

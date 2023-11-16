@@ -9,7 +9,7 @@ namespace HotelProject.BL.Model
 {
     public class Activity
     {
-        public Activity(int id,string name, string description, DateTime date, int duration, int availablePlaces, decimal priceAdult, decimal priceChild, string location)
+        public Activity(int id,string name, string description, DateTime date, int duration, int availablePlaces, decimal priceAdult, decimal priceChild,decimal discount, string location)
         {
             _id = id;
             _name = name;
@@ -19,6 +19,7 @@ namespace HotelProject.BL.Model
             _availablePlaces = availablePlaces;
             _priceAdult = priceAdult;
             _priceChild = priceChild;
+            _discount = discount;
             _location = location;
         }
 
@@ -40,8 +41,8 @@ namespace HotelProject.BL.Model
         private decimal _priceChild;
         public string Location { get { return _location; } set { if (string.IsNullOrWhiteSpace(value)) throw new ActivityException("location is empty"); _location = value; } }
         private string _location;
-        public decimal Discount { get { return _discount; } set { if (value < 0 || value > 100) throw new ActivityException("invalid discount"); _discount = value; } }
-        private decimal _discount;
+        public decimal? Discount { get { return _discount; } set { if (value < 0 || value > 100) throw new ActivityException("invalid discount"); _discount = value; } }
+        private decimal? _discount;
 
 
     }

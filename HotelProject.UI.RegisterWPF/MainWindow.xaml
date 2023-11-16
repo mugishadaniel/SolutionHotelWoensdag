@@ -52,7 +52,7 @@
         <ComboBox Grid.Row="2" Name="ActivitiesComboBox" DisplayMemberPath="Name" SelectedValuePath="Id" Width="200" Margin="0,0,0,10" SelectionChanged="ActivitiesComboBox_SelectionChanged"/>
 
         <TextBlock Grid.Row="3" Text="Select Members:" FontWeight="Bold"/>
-        <ListBox Grid.Row="3" Name="MembersListBox" DisplayMemberPath="Name" SelectionMode="Multiple" Width="200" Margin="0,0,0,10" SelectionChanged="MembersListBox_SelectionChanged"/>
+        <ListBox Grid.Row="3" Name="MembersListBox" DisplayMemberPath="Name" SelectionMode="Multiple" Width="200" Margin="0,0,0,10" SelectionChanged="MembersListBox_SelectionChanged" IsEnabled="False"/>
 
 
         <TextBlock Grid.Row="4" Text="Where:" FontWeight="Bold"/>

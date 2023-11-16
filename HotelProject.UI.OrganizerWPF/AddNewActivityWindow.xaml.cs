@@ -43,10 +43,11 @@ namespace HotelProject.UI.OrganizerWPF
             int availablePlaces = Convert.ToInt32(AvailablePlacesTextBox.Text);
             decimal priceAdult = Convert.ToDecimal(PriceAdultTextBox.Text);
             decimal priceChild = Convert.ToDecimal(PriceChildTextBox.Text);
+            decimal discount = Convert.ToDecimal(DiscountTextBox.Text);
             string location = LocationTextBox.Text;
 
             // Create the new Activity object
-            Activity newActivity = new Activity(0, name, description, date, duration, availablePlaces, priceAdult, priceChild, location);
+            Activity newActivity = new Activity(0, name, description, date, duration, availablePlaces, priceAdult, priceChild,discount, location);
 
             // Add your logic to save the new activity to the database or perform other actions
             activityManager.AddActivity(newActivity);

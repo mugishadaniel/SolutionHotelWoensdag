@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelProject.Util", "HotelP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelProject.UI.OrganizerWPF", "HotelProject.UI.OrganizerWPF\HotelProject.UI.OrganizerWPF.csproj", "{B22115F7-27EE-4F50-9306-2323C15BCCCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelProject.UI.RegisterWPF", "HotelProject.UI.RegisterWPF\HotelProject.UI.RegisterWPF.csproj", "{7BF8601D-7237-4A36-9997-3FD7AB36E335}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelProject.UI.RegisterWPF", "HotelProject.UI.RegisterWPF\HotelProject.UI.RegisterWPF.csproj", "{7BF8601D-7237-4A36-9997-3FD7AB36E335}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProjectHotel", "TestProject1\TestProjectHotel.csproj", "{F9342ACE-B343-4C13-899A-038936669F0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{7BF8601D-7237-4A36-9997-3FD7AB36E335}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BF8601D-7237-4A36-9997-3FD7AB36E335}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BF8601D-7237-4A36-9997-3FD7AB36E335}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9342ACE-B343-4C13-899A-038936669F0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9342ACE-B343-4C13-899A-038936669F0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9342ACE-B343-4C13-899A-038936669F0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9342ACE-B343-4C13-899A-038936669F0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
