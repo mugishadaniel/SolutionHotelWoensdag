@@ -1,14 +1,14 @@
 using HotelProject.BL.Exceptions;
 using HotelProject.BL.Model;
 
-namespace TestProject1
+namespace TestProjectHotel.Model
 {
     public class CustomerTest
     {
         [Fact]
         public void InvalidEmailCustomer()
         {
-   
+
             string email = "test";
             string phone = "123456789";
             Address address = new Address("test", "test", "test", "test");
@@ -39,7 +39,7 @@ namespace TestProject1
             string name = "";
             int id = 1;
             ContactInfo contactInfo = new ContactInfo("test@", "123456789", new Address("test", "test", "test", "test"));
-            Assert.Throws<CustomerException>(() => new Customer(name,contactInfo));
+            Assert.Throws<CustomerException>(() => new Customer(name, contactInfo));
         }
     }
 }

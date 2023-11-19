@@ -12,10 +12,16 @@ namespace HotelProject.BL.Managers
     public class CustomerManager
     {
         private ICustomerRepository _customerRepository;
+        private object customerRepositoryMock;
 
         public CustomerManager(ICustomerRepository customerRepository)
         {
             _customerRepository = customerRepository;
+        }
+
+        public CustomerManager(object customerRepositoryMock)
+        {
+            this.customerRepositoryMock = customerRepositoryMock;
         }
 
         public List<Customer> GetCustomers(string filter)
