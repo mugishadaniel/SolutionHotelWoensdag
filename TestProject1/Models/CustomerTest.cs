@@ -1,7 +1,7 @@
 using HotelProject.BL.Exceptions;
 using HotelProject.BL.Model;
 
-namespace TestProjectHotel.Model
+namespace TestProjectHotel.Models
 {
     public class CustomerTest
     {

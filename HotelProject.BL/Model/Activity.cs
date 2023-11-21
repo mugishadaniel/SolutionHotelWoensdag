@@ -11,16 +11,16 @@ namespace HotelProject.BL.Model
     {
         public Activity(int id,string name, string description, DateTime date, int duration, int availablePlaces, decimal priceAdult, decimal priceChild,decimal discount, string location)
         {
-            _id = id;
-            _name = name;
-            _description = description;
-            _date = date;
-            _duration = duration;
-            _availablePlaces = availablePlaces;
-            _priceAdult = priceAdult;
-            _priceChild = priceChild;
-            _discount = discount;
-            _location = location;
+            Id = id;
+            Name = name;
+            Description = description;
+            Date = date;
+            Duration = duration;
+            AvailablePlaces = availablePlaces;
+            PriceAdult = priceAdult;
+            PriceChild = priceChild;
+            Discount = discount;
+            Location = location;
         }
 
         public int Id { get { return _id; } set { if (value <= 0) throw new ActivityException("invalid id"); _id = value; } }
