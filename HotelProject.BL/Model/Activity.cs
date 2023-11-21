@@ -23,7 +23,7 @@ namespace HotelProject.BL.Model
             Location = location;
         }
 
-        public int Id { get { return _id; } set { if (value <= 0) throw new ActivityException("invalid id"); _id = value; } }
+        public int Id { get { return _id; } set { if (value < 0) throw new ActivityException("invalid id"); _id = value; } }
         private int _id;
         public string Name { get { return _name; } set { if (string.IsNullOrWhiteSpace(value)) throw new ActivityException("name is empty"); _name = value; } }
         private string _name;

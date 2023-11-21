@@ -20,6 +20,14 @@ namespace HotelProject.BL.Model
             ContactInfo = contactInfo;
         }
 
+        public Customer(string name, int id, ContactInfo contactInfo,List<Member> members)
+        {
+            Name = name;
+            Id = id;
+            ContactInfo = contactInfo;
+            Members = members;
+        }
+
         public Customer(string name, ContactInfo contactInfo)
         {
             Name = name;

@@ -19,5 +19,10 @@ namespace HotelProject.BL.Managers
         {
             registrationRepository.AddRegistration(registration);
         }
+
+        public List<Registration> GetAllRegistrations()
+        {
+            return registrationRepository.GetAllRegistrations();
+        }
     }
 }

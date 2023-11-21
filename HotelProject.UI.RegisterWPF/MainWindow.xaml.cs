@@ -31,6 +31,7 @@ namespace HotelProject.UI.RegisterWPF
         private Customer customer;
         private Activity activity;
         private List<Member> members;
+        private List<Registration> registrations;
         public MainWindow()
         {
             InitializeComponent();
@@ -40,6 +41,7 @@ namespace HotelProject.UI.RegisterWPF
             memberManager = new MemberManager(RepositoryFactory.MemberRepository);
             CustomerComboBox.ItemsSource = customerManager.GetCustomers(null);
             ActivitiesComboBox.ItemsSource = activityManager.GetActivities(null);
+            registrations = registrationManager.GetAllRegistrations();
             customer = new Customer();
             customer.Members = new List<Member>();
 
@@ -53,6 +55,31 @@ namespace HotelProject.UI.RegisterWPF
                 MessageBox.Show("Please fill all fields");
                 return;
             }
+            // check first if the activity is before today
+            if (activity.Date < DateTime.Now)
+            {
+                MessageBox.Show("Please choose an activity that is not in the past");
+                return;
+            }
+
+            //check if there are enough seats for that date
+            if (activity.AvailablePlaces < registration.NumberOfAdults + registration.NumberOfChildren)
+            {
+                MessageBox.Show("There are not enough seats for this activity");
+                return;
+            }
+
+            // check if this activity is already registered by someone else
+            foreach (Registration reg in registrations)
+            {
+                if (reg.Activity.Id == activity.Id)
+                {
+                    MessageBox.Show("This activity is already registered by someone else");
+                    return;
+                }
+            }
+
+
             registrationManager.AddRegistration(registration);
             MessageBox.Show("Registration completed successfully");
             Close();

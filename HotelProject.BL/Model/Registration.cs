@@ -17,6 +17,25 @@ namespace HotelProject.BL.Model
             CalculatePrice();
             
         }
+        public Registration(int id,Customer customer,Activity activity)
+        {
+            Id = id;
+            Customer = customer;
+            Activity = activity;
+            NumberOfAdults = 1; //the customer is always an adult
+            AdultOrChild(customer);
+            CalculatePrice();
+        }
+
+        public Registration(int id, Customer customer, Activity activity, int numberOfAdults, int numberOfChildren)
+        {
+            Id = id;
+            Customer = customer;
+            Activity = activity;
+            NumberOfAdults = numberOfAdults;
+            NumberOfChildren = numberOfChildren;
+            CalculatePrice();
+        }
 
         public int Id { get { return _id; } set { if (value <= 0) throw new RegistrationException("invalid id"); _id = value; } }
         private int _id;
@@ -42,7 +61,7 @@ namespace HotelProject.BL.Model
             if (_activity.Discount != null || _activity.Discount != 0)
             {
                 costAdult = (decimal)(_activity.PriceAdult - (_activity.PriceAdult * (_activity.Discount/100))) * _numberOfAdults;
-                if (Customer.Members.Count != 0) costChild = (decimal)(_activity.PriceChild - (_activity.PriceChild * (_activity.Discount / 100))) * _numberOfChildren;
+                if (NumberOfChildren != 0) costChild = (decimal)(_activity.PriceChild - (_activity.PriceChild * (_activity.Discount / 100))) * _numberOfChildren;
                 else costChild = 0;
             }
             else
@@ -78,6 +97,11 @@ namespace HotelProject.BL.Model
             }
 
 
+        }
+
+        public override string ToString()
+        {
+            return $"Registration: {Id} - {Customer.Name} - {Activity.Name} - {NumberOfAdults} - {NumberOfChildren} - {Price}";
         }
     }
 }

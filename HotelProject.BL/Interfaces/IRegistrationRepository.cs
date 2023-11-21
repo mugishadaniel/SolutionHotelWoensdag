@@ -10,5 +10,6 @@ namespace HotelProject.BL.Interfaces
     public interface IRegistrationRepository
     {
         void AddRegistration(Registration registration);
+        List<Registration> GetAllRegistrations();
     }
 }
