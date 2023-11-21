@@ -32,6 +32,7 @@ namespace HotelProject.UI.RegisterWPF
         private Activity activity;
         private List<Member> members;
         private List<Registration> registrations;
+        private List<Activity> activities;
         public MainWindow()
         {
             InitializeComponent();
@@ -40,7 +41,9 @@ namespace HotelProject.UI.RegisterWPF
             activityManager = new ActivityManager(RepositoryFactory.ActivityRepository);
             memberManager = new MemberManager(RepositoryFactory.MemberRepository);
             CustomerComboBox.ItemsSource = customerManager.GetCustomers(null);
-            ActivitiesComboBox.ItemsSource = activityManager.GetActivities(null);
+            //filter the activities to show only the ones that are not in the past
+            activities = activityManager.GetActivities(null).Where(a => a.Date > DateTime.Now).ToList();
+            ActivitiesComboBox.ItemsSource = activities;         
             registrations = registrationManager.GetAllRegistrations();
             customer = new Customer();
             customer.Members = new List<Member>();
@@ -60,6 +63,16 @@ namespace HotelProject.UI.RegisterWPF
             {
                 MessageBox.Show("Please choose an activity that is not in the past");
                 return;
+            }
+
+            //check if the customer isn't already registered for this activity
+            foreach (Registration reg in registrations)
+            {
+                if (reg.Customer.Id == customer.Id && reg.Activity.Id == activity.Id && reg.Activity.Date == activity.Date)
+                {
+                    MessageBox.Show("You are already registered for this activity");
+                    return;
+                }
             }
 
             //check if there are enough seats for that date
