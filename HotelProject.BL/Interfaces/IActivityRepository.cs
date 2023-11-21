@@ -11,5 +11,7 @@ namespace HotelProject.BL.Interfaces
     {
         List<Activity> GetActivities(string filter);
         void AddActivity(Activity activity);
+
+        void UpdateActivityAvailableSeats(Activity activity,int seats);
     }
 }

@@ -27,5 +27,10 @@ namespace HotelProject.BL.Managers
         {
             return _activityRepository.GetActivities(filter);
         }
+
+        public void UpdateActivityAvailableSeats(Activity activity,int seats)
+        {
+            _activityRepository.UpdateActivityAvailableSeats(activity,seats);
+        }
     }
 }

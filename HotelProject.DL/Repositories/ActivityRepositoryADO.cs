@@ -114,5 +114,39 @@ namespace HotelProject.DL.Repositories
                 throw new ActivityRepositoryException(ex.Message);
             }
         }
+
+        public void UpdateActivityAvailableSeats(Activity activity,int seatstaken)
+        {
+            try
+            {
+
+                string query = "UPDATE Activity SET AvailablePlaces = @AvailablePlaces WHERE ID = @ID";               
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+                    SqlTransaction transaction = conn.BeginTransaction();
+                    try
+                    {
+                        cmd.CommandText = query;
+                        cmd.Transaction = transaction;
+                        cmd.Parameters.AddWithValue("@AvailablePlaces", activity.AvailablePlaces - seatstaken);
+                        cmd.Parameters.AddWithValue("@ID", activity.Id);
+                        cmd.ExecuteNonQuery();
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new ActivityRepositoryException(ex.Message);
+            }
+        }
     }
 }

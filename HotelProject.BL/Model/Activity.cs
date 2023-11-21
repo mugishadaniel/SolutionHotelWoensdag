@@ -33,7 +33,7 @@ namespace HotelProject.BL.Model
         private DateTime _date;
         public int Duration { get { return _duration; } set { if (value <= 0) throw new ActivityException("invalid duration"); _duration = value; } }
         private int _duration;
-        public int AvailablePlaces { get { return _availablePlaces; } set { if (value <= 0) throw new ActivityException("invalid availableplaces"); _availablePlaces = value; } }
+        public int AvailablePlaces { get { return _availablePlaces; } set { if (value < 0) throw new ActivityException("invalid availableplaces"); _availablePlaces = value; } }
         private int _availablePlaces;
         public decimal PriceAdult { get { return _priceAdult; } set { if (value <= 0) throw new ActivityException("invalid priceadult"); _priceAdult = value; } }
         private decimal _priceAdult;

@@ -69,17 +69,20 @@ namespace HotelProject.UI.RegisterWPF
                 return;
             }
 
-            // check if this activity is already registered by someone else
+            // check if this activity is already registered by someone else and if there are enough seats
             foreach (Registration reg in registrations)
             {
-                if (reg.Activity.Id == activity.Id)
+                if (reg.Activity.Id == activity.Id && reg.Activity.Date == activity.Date)
                 {
-                    MessageBox.Show("This activity is already registered by someone else");
-                    return;
+                    if (reg.Activity.AvailablePlaces < customer.Members.Count+1)
+                    {
+                        MessageBox.Show("There are not enough seats for this activity");
+                        return;
+                    }
                 }
             }
 
-
+            activityManager.UpdateActivityAvailableSeats(activity,registration.NumberOfAdults + registration.NumberOfChildren);
             registrationManager.AddRegistration(registration);
             MessageBox.Show("Registration completed successfully");
             Close();
