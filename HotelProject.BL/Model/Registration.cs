@@ -10,8 +10,8 @@ namespace HotelProject.BL.Model
     {
         public Registration(Customer customer, Activity activity)
         {
-            _customer = customer;
-            _activity = activity;
+            Customer = customer;
+            Activity = activity;
             NumberOfAdults = 1; //the customer is always an adult
             AdultOrChild(customer);
             CalculatePrice();

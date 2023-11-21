@@ -3,7 +3,7 @@
 namespace HotelProject.BL.Model
 {
     [Serializable]
-    internal class RegistrationException : Exception
+    public class RegistrationException : Exception
     {
 
 

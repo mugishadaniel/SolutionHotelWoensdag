@@ -17,9 +17,9 @@ namespace HotelProject.BL.Model
 
         public Organizer(int id,string name, ContactInfo contactInfo)
         {
-            _name = name;
-            _contactInfo = contactInfo;
-            _id = id;
+            Name = name;
+            ContactInfo = contactInfo;
+            Id = id;
         }
 
         public ContactInfo ContactInfo { get { return _contactInfo; } set { if (value == null) throw new OrganizerException("contactinfo null"); _contactInfo = value; } }

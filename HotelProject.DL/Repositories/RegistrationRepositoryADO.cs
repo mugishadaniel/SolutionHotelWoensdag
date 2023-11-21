@@ -38,7 +38,7 @@ namespace HotelProject.DL.Repositories
             catch (Exception ex)
             {
 
-                throw new RegistrationException("AddRegistration failed", ex);
+                throw new RegistrationRepositoryException("AddRegistration failed", ex);
             }
         }
     }

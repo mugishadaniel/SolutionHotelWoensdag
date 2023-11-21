@@ -1,4 +1,4 @@
-﻿using HotelProject.BL.Exceptions;
+﻿    using HotelProject.BL.Exceptions;
 
 namespace HotelProject.BL.Model
 {
@@ -15,9 +15,9 @@ namespace HotelProject.BL.Model
 
         public Customer(string name, int id, ContactInfo contactInfo)
         {
-            _name = name;
-            _id = id;
-            _contactInfo = contactInfo;
+            Name = name;
+            Id = id;
+            ContactInfo = contactInfo;
         }
 
         public Customer(string name, ContactInfo contactInfo)
